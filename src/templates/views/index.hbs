@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatbot Admin</title>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="/img/favicon.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link type="text/css" rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <script src="/js/app.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+  <script type="text/javascript">
+    window.addEventListener('load', function () {
+      const name = localStorage.getItem("name")
+      const token = localStorage.getItem("token")
+      if (name && token) {
+        console.log(name, token)
+        document.getElementById('form-login').style.display = 'none';
+        document.getElementById('logged-user').style.display = 'block';
+        document.getElementById('display-name').innerHTML = name;
+      }
+    })
+  </script>
+
+</head>
+
+<body class="main-body">
+  <div class="main-content-login">
+    <div class="box-center">
+      <img src="/img/chatbot.svg" style="width: 100px;">
+      {{>login}}
+    </div>
+  </div>
+<body>

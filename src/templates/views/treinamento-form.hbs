@@ -1,0 +1,61 @@
+{{>head}}
+{{>header}}
+
+<div class="box-center">
+
+  <div class="box-buttons">
+    <a href="/treinamento" class="btn">Voltar</a>
+  </div>
+
+  <div class="box-center grey">
+    <p>Digite abaixo uma pergunta e uma resposta para o banco de dados que será utilizado no treinamento do chatbot.</p>
+    <p>É desejável que você adicione mais de uma pergunta para a mesma resposta, quanto maior o número de variações melhor
+      será a compreesão do Chatbot para uma pergunta não idêntica realizada pelo usuário.</p>
+    <form method="POST" action="/treinamento/criar" id="form-treinamento">
+     <fieldset id="questions-set" style="border: none;">
+      <input
+        class="treinamento-input"
+        placeholder="Pergunta"
+        name="questions[]"
+        type="text"
+        maxlength="150"
+      /> <i id="add-question" class="fa fa-plus-square" style="cursor: pointer; color: #1FA49B" aria-hidden="true"></i>
+      <br />
+      </fieldset>
+      <br />
+      <input
+        class="treinamento-input"
+        placeholder="Resposta"
+        name="answer"
+        type="text"
+        maxlength="150"
+      />
+      <br />
+      <input type="hidden" name="path" />
+      <input type="submit" name="go" value="Submit" style="display:none"/>
+      <div class="box-buttons" style="text-align: center;">
+        <a type="submit" onclick="document.getElementById('form-treinamento').submit()" class="btn">Criar</a>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<script>
+
+  $(document).ready(function () {
+    $('#add-question').on('click', function() {
+      $('#questions-set').append('<div><input class="treinamento-input" placeholder="Pergunta" name="questions[]" \
+      type="text" maxlength="150"/> <i id="del-question" class="remove-field fa fa-minus-square" style="cursor: pointer; \
+      color: #1FA49B" aria-hidden="true"></i><br /></div>');
+      return false; //prevent form submission
+    });
+
+    $('#questions-set').on('click', '.remove-field', function() {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
+  })
+</script>
+
+{{>footer}}

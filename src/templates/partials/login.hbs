@@ -1,0 +1,53 @@
+<div class="box-authentication">
+  <p style="font-size: 2em; margin: 0px;">
+    Chatbot
+  </p>
+  <p>
+    Acessar área administrativa
+  </p>
+  <form method="POST" action="/login" id="form-login">
+    <input
+      class="authentication-input"
+      placeholder="Nome do usuário"
+      name="login"
+      type="text"
+    />
+    <br />
+    <input
+      class="authentication-input"
+      placeholder="Senha"
+      name="password"
+      type="password"
+    />
+    <br />
+    <input type="hidden" name="path" value="{{path}}" />
+    <a id="btn-submit" class="btn btn-login">
+      Entrar
+    </a>
+  </form>
+  <p id="login-error" class="text-sm danger">
+    {{error}}
+  </p>
+  <p id="input-error" class="text-sm danger" style="display: none">
+    Favor preencher os campos corretamente.
+  </p>
+</div>
+<script type="text/javascript">
+  $(document).ready(() => {
+    $("#form-login").focusin(() => {
+      $("#login-error").css({ display: "none" })
+      $("#input-error").css({ display: "none" })
+    });
+
+    $('#btn-submit').click((e) => {
+      let login_length = $('.authentication-input').val().replace(/\s+/g, '').length
+      let password_length = $('.authentication-input').not(':first').val().replace(/\s+/g, '').length
+      console.log(login_length, password_length)
+      if (login_length > 2 && password_length > 2) {
+        document.getElementById('form-login').submit();
+      } else {
+        $("#input-error").css({ display: "block" })
+      }
+    });
+  });
+</script>

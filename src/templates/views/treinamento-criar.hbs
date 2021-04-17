@@ -1,0 +1,20 @@
+{{>head}}
+{{>header}}
+
+<div class="box-center">
+
+  <div class="box-buttons">
+    <a href="/treinamento" class="btn">Voltar</a>
+  </div>
+
+  <div class="box-center grey">
+    <p>{{msg}}</p>
+    {{#if success}}
+      <p>Agora é necessário treinar o sistema para que esse conhecimento seja incorporada ao chatbot.</p>
+      <p>Clique em voltar e, em seguida, clique em 'Treinar chatbot'.</p>
+    {{/if}}
+  </div>
+
+</div>
+
+{{>footer}}

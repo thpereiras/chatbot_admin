@@ -1,0 +1,71 @@
+{{>head}}
+{{>header}}
+
+<div class="box-center">
+
+<div class="info-panel">
+    Nesta seção você encontrará o <i>feedback</i> final do usuário, ou seja, a nota de 1 a 5 avaliando o completo diálogo.
+    <br>Cada usuário que carregar a página
+    Com o <i>id</i> da sessão é possível navegar até o menu "Avaliações de respostas" e visualizar todo o diálogo da interação.
+</div>
+
+{{#if data}}
+
+<table id="avaliacao_final" class="generic-table hover row-border order-column">
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Usuário (sessão)</th>
+      <th>Avaliação</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each data}}
+    <tr>
+      <td class="dt-body-center dt-nowrap">
+        <span style="display: none;">{{this.timestamp}}</span>
+        {{#timestamp this.timestamp}}{{/timestamp}}
+      </td>
+      <td class="dt-body-center">{{this.session}}</td>
+      <td class="dt-body-center">
+        <center>
+          <span style="display: none;">{{this.rating}}</span>
+          {{#stars this.rating 5}}
+          {{#if this}}
+          <i class="fa fa-star light_green"></i>
+          {{else}}
+          <i class="fa fa-star light_grey"></i>
+          {{/if}}
+          {{/stars}}
+        </center>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{else}}
+
+<div class="box-center grey">
+  <p>Sem dados.</p>
+</div>
+
+{{/if}}
+
+</div>
+
+{{>footer}}
+
+<script>
+  $(document).ready(function () {
+    $('#avaliacao_final').DataTable({
+      "language": {{>datatable/i18n/pt_BR}}
+    });
+  });
+</script>
+
+
+
+{{!-- https://codepen.io/SitePoint/pen/xbvWQv --}}
+
+{{!-- http://js-grid.com/demos/ --}}

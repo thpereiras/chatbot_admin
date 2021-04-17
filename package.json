@@ -1,0 +1,29 @@
+{
+  "name": "chatbot-admin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start-dev": "nodemon src/index.js",
+    "lint": "./node_modules/.bin/eslint ./src/* --ext .js --fix --no-error-on-unmatched-pattern",
+    "prettier": "./node_modules/.bin/prettier './src/**/*.js' --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.1",
+    "hbs": "^4.1.1",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  }
+}

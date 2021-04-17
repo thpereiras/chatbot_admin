@@ -1,0 +1,118 @@
+{{>head}}
+{{>header}}
+
+<div class="box-center">
+
+  <div class="box-buttons">
+    <a id="btn-new" href="/treinamento/form" class="btn"> Criar nova pergunta</a>
+    <a id="btn-train" href="/treinar" class="btn"> Treinar chatbot</a>
+  </div>
+
+  <div class="info-panel">
+      O sistema possui duas bases de conhecimento, uma instrínseca, carregada na inicialização do sistema,
+      onde conhecimentos básicos de saudações, agradecimentos e despedidas são carregados.
+      A outra base é relacionada ao cadastro manual de perguntas e respostas cadastradas nesta seção.
+      Após o cadastro de um conjunto de "Pergunta e Resporta" é necessário clicar no botão "Treinar chatbot" para que esse
+      novo conhecimento seja efetivamente utilizado pelo chatbot.
+  </div>
+
+  {{#if data}}
+
+  <table id="avaliacao_respostas" class="generic-table hover row-border order-column">
+    <thead>
+      <tr>
+        <th class="dt-head-center">Data</th>
+        <th class="dt-head-left">Pergunta</th>
+        <th class="dt-head-left">Resposta</th>
+        <th class="dt-head-center">Remover</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+      <tr>
+        <td class="dt-body-center dt-nowrap">
+          <span style="display: none;">{{this.timestamp}}</span>
+          {{#timestamp this.timestamp}}{{/timestamp}}
+        </td>
+        <td class="dt-body-left">{{this.question}}</td>
+        <td class="dt-body-left">{{this.answer}}</td>
+        <td>
+          <center><a href="/treinamento/remover/{{this.id}}" style="padding: 10px;" class="remover_registro">
+              <i class="fa fa-trash danger"></i>
+            </a></center>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{else}}
+
+  <div class="box-center grey">
+    <p>Sem dados.</p>
+  </div>
+
+  {{/if}}
+
+  <div id="confirmBox">
+    <div class="message"></div>
+    <span class="button yes">Remover</span>
+    <span class="button no">Cancelar</span>
+  </div>
+
+  <div id="loader" class="loader">
+    <div class="loader-wheel"></div>
+    <div class="loader-text"></div>
+  </div>
+
+</div>
+
+{{>footer}}
+
+<script>
+
+  $(document).ready(function () {
+
+    function doConfirm(msg, yesFn, noFn, label_yes, label_no) {
+      var confirmBox = $("#confirmBox");
+      confirmBox.find(".message").text(msg);
+      confirmBox.find(".yes").text(label_yes)
+      confirmBox.find(".no").text(label_no)
+      confirmBox.find(".yes,.no").unbind().click(function () {
+        confirmBox.hide();
+      });
+      confirmBox.find(".yes").click(yesFn);
+      confirmBox.find(".no").click(noFn);
+      confirmBox.show();
+    }
+
+    $(".remover_registro").click(function (e) {
+      e.preventDefault()
+      let url = $(this).attr("href")
+      doConfirm("Tem certeza que deseja remover o registro?", function yes(a) {
+        window.location.href = url
+      }, function no() {
+        // do nothing
+      }, "Remover", "Cancelar");
+    });
+
+    $("#btn-train").click(function (e) {
+      e.preventDefault()
+      let url = $(this).attr("href")
+      doConfirm("Tem certeza que deseja iniciar o treinamento?", function yes(a) {
+        $("#loader").css("display", "block")
+        window.location.href = url
+      }, function no() {
+        // do nothing
+      }, "Treinar", "Cancelar");
+    });
+  });
+
+  $(document).ready(function () {
+    $('#avaliacao_respostas').DataTable({
+      "language": {{> datatable / i18n / pt_BR}},
+    "pageLength": 10,
+    "lengthMenu": [10, 15, 25, 50, 75, 100],
+    });
+  });
+</script>

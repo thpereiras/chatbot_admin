@@ -1,0 +1,76 @@
+{{>head}}
+{{>header}}
+
+<div class="box-center">
+
+<div class="info-panel">
+    Nesta seção você encontrará o <i>feedback</i> dado pelo usuário para cada resposta dado pelo Chatbot. <br>Cada usuário que carregar a página
+    do Chatbot irá gerar um <i>id</i> de sessão único, isso singifica que você pode utilizar o campo de pesquisa para selecionar uma interação
+    completa de um usuário.
+</div>
+
+{{#if data}}
+
+<table id="avaliacao_respostas" class="generic-table hover row-border order-column">
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Sessão</th>
+      <th class="dt-head-left">Pergunta do usuário</th>
+      <th class="dt-head-left">Resposta do Chatbot</th>
+      <th>Avaliação</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each data}}
+    <tr>
+      <td class="dt-body-center dt-nowrap">
+        <span style="display: none;">{{this.timestamp}}</span>
+        {{#timestamp this.timestamp}}{{/timestamp}}
+      </td>
+      <td class="dt-body-center">{{this.session}}</td>
+      <td class="dt-body-left">{{this.question}}</td>
+      <td class="dt-body-left">{{this.answer}}</td>
+      <td class="dt-body-center">
+        <center>
+          <span style="display: none;">{{this.helped}}</span>
+          {{#if this.helped}}
+          <i class="fa fa-thumbs-o-up green"></i>
+          {{else}}
+          <i class="fa fa-thumbs-o-down danger"></i>
+          {{/if}}
+        </center>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{else}}
+
+<div class="box-center grey">
+  <p>Sem dados.</p>
+</div>
+
+{{/if}}
+
+</div>
+
+{{>footer}}
+
+<script>
+  $(document).ready(function () {
+    $('#avaliacao_respostas').DataTable({
+      "language": {{>datatable/i18n/pt_BR}},
+      "pageLength": 10,
+      "lengthMenu": [ 10, 15, 25, 50, 75, 100 ],
+    });
+  });
+</script>
+
+
+
+
+
+{{!-- Ver ========== --}}
+{{!-- https://codepen.io/diomed/pen/oNvMYgj --}}

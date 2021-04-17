@@ -1,0 +1,19 @@
+version: "3"
+services:
+  chatbot_admin:
+    container_name: chatbot_admin
+    image: node:15.10.0-alpine3.10
+    user: "node"
+    working_dir: /home/node/app
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./chatbot_admin:/home/node/app
+    command: npm run start-dev
+    environment:
+      PORT: 3001
+      NODE_ENV: development
+      CHATBOT_API_URL: http://chatbot_api:3002
+      SESSION_COOKIE_KEY1: "<generate a strong random key1>"
+      SESSION_COOKIE_KEY2: "<generate a strong random key2>"
+      SESSION_COOKIE_KEY3: "<generate a strong random key3>"
